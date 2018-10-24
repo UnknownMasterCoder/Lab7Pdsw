@@ -13,7 +13,7 @@
         <typeAlias type="edu.eci.pdsw.samples.entities.Cliente" alias="Cliente"/>
         <typeAlias type="edu.eci.pdsw.samples.entities.Item" alias="Item"/>
         <typeAlias type="edu.eci.pdsw.samples.entities.ItemRentado" alias="ItemRentado"/>
-        <typeAlias type="edu.eci.pdsw.samples.entities.TipoItem" alias="TipoItem"/>
+        <typeAlias type="edu.eci.pdsw.samples.entities.TipoItem" alias="TipoItem"/>        
     </typeAliases>	
 
     <environments default="development">
@@ -34,7 +34,8 @@
     <mappers>
         <mapper resource="mappers/ClienteMapper.xml"></mapper>
         <mapper resource="mappers/ItemMapper.xml"></mapper>
-        <mapper resource="mappers/TipoItemMapper.xml"></mapper>        
+        <mapper resource="mappers/TipoItemMapper.xml"></mapper>
+        <mapper resource="mappers/ItemRentadoMapper.xml"></mapper>        
     </mappers> 
         
         

@@ -18,9 +18,16 @@ package edu.eci.pdsw.samples.services.client;
 
 
 
+import edu.eci.pdsw.sampleprj.dao.mybatis.mappers.ClienteMapper;
+import edu.eci.pdsw.sampleprj.dao.mybatis.mappers.ItemMapper;
+import edu.eci.pdsw.samples.entities.Item;
+import edu.eci.pdsw.samples.entities.ItemRentado;
+import edu.eci.pdsw.samples.entities.TipoItem;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -59,24 +66,51 @@ public class MyBatisExample {
      */
     public static void main(String args[]) throws SQLException {
         SqlSessionFactory sessionfact = getSqlSessionFactory();
-
         SqlSession sqlss = sessionfact.openSession();
-
         
-        //Crear el mapper y usarlo: 
-        //ClienteMapper cm=sqlss.getMapper(ClienteMapper.class)
-        //cm...
+        //Crear mappers y usarlo: 
+        ClienteMapper cm = sqlss.getMapper(ClienteMapper.class);
+        ItemMapper im = sqlss.getMapper(ItemMapper.class);       
         
+        //Consultar todos los clientes
+        System.out.println("Consultar Clientes:");
+        System.out.println("--------------------------");
+        System.out.println(cm.consultarClientes());
+        System.out.println("--------------------------\n\n");
         
+        //Consulta Cliente
+        System.out.println("Consultar Cliente: "+9843);
+        System.out.println("--------------------------");
+        System.out.println(cm.consultarCliente(9843));
+        System.out.println("--------------------------\n\n");
         
-        sqlss.commit();
+        //Agregar Item rentado a un cliente
+        Date fechainicio = new Date(2018, 10, 02);
+        Date fechafin = new Date(2018, 10, 12);
+        cm.agregarItemRentadoACliente(2099190, 10, fechainicio, fechafin);
+        //y Verificar que se haya agregado el item
+        System.out.println("Agregar Item Rentado a Cliente: "+2099190);
+        System.out.println("--------------------------");
+        System.out.println(cm.consultarCliente(2099190));
+        System.out.println("--------------------------\n\n");
         
+        //Agrega un Item Nuevo
+        TipoItem newTipoItem = new TipoItem(4, "Sci-Fi");
+        Item newItem = new Item(newTipoItem, 12, "Star Wars", "Best movie ever", fechainicio, 10000, "Blue Ray", "Sci-Fi", new ArrayList<ItemRentado>());
+        im.insertarItem(newItem);
+        //Verificar funcionamiento con consulta
+        System.out.println("Agregar Item Nuevo: "+12);
+        System.out.println("--------------------------");
+        System.out.println(im.consultarItem(12));
+        System.out.println("--------------------------\n\n");
         
-        sqlss.close();
-
+        //Consultar todos los items
+        System.out.println("Consultar Items:");
+        System.out.println("--------------------------");
+        System.out.println(im.consultarItems());
+        System.out.println("--------------------------\n\n");
         
-        
+        sqlss.commit();       
+        sqlss.close();                
     }
-
-
 }

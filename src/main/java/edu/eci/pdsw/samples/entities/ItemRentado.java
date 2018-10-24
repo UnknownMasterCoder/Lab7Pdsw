@@ -15,19 +15,29 @@ import java.sql.Date;
 public class ItemRentado implements Serializable {
 
     private int id;
-
-    private Item item;
     private Date fechainiciorenta;
     private Date fechafinrenta;
+    private Cliente cliente;
+    private Item item;
 
-    public ItemRentado(int id, Item item, Date fechainiciorenta, Date fechafinrenta) {
+    public ItemRentado(int id, Cliente cliente, Item item, Date fechainiciorenta, Date fechafinrenta) {
         this.id = id;
+        this.cliente = cliente;
         this.item = item;
         this.fechainiciorenta = fechainiciorenta;
         this.fechafinrenta = fechafinrenta;
     }
 
     public ItemRentado() {
+    }
+
+    
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public int getId() {

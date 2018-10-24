@@ -6,6 +6,7 @@
 package edu.eci.pdsw.samples.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Date;
  * @author 2106913
  */
 public class Item implements Serializable{
-    private TipoItem tipo;
+    
     private int id;
     private String nombre;
     private String descripcion;
@@ -21,8 +22,10 @@ public class Item implements Serializable{
     private long tarifaxDia;
     private String formatoRenta;
     private String genero;
+    private TipoItem tipo;    
+    private ArrayList<ItemRentado> rentados; 
 
-    public Item(TipoItem tipo, int id, String nombre, String descripcion, Date fechaLanzamiento, long tarifaxDia, String formatoRenta, String genero) {
+    public Item(TipoItem tipo, int id, String nombre, String descripcion, Date fechaLanzamiento, long tarifaxDia, String formatoRenta, String genero, ArrayList<ItemRentado> rentados) {
         this.tipo = tipo;
         this.id = id;
         this.nombre = nombre;
@@ -31,6 +34,7 @@ public class Item implements Serializable{
         this.tarifaxDia = tarifaxDia;
         this.formatoRenta = formatoRenta;
         this.genero = genero;
+        this.rentados = rentados;
     }
 
     public Item() {
@@ -46,6 +50,18 @@ public class Item implements Serializable{
     public void setTipo(TipoItem tipo) {
         this.tipo = tipo;
     }
+       
+    public ArrayList<ItemRentado> getRentados() {
+        return rentados;
+    }
+    
+    public void setRentados(ArrayList<ItemRentado> rentados) {
+        this.rentados = rentados;
+    }
+
+    public void setRentado(ItemRentado rentado) {
+        rentados.add(rentado);
+    }
 
     public int getId() {
         return id;
@@ -54,7 +70,6 @@ public class Item implements Serializable{
     public void setId(int id) {
         this.id = id;
     }
-
 
 
     public String getNombre() {
